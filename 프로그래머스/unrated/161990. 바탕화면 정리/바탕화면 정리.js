@@ -1,25 +1,21 @@
 function solution(wallpaper) {
-    let map = new Map()
-    map.set('arrX',[])
-    map.set('arrY',[])
-
-    let answer = []
+    let [arrX,arrY,answer] = [[],[],[]] 
     wallpaper.forEach((ele,y) => {
-        let spliter = ele.split('')
-        spliter.forEach( (it,x) => {
-            let pushx = map.get('arrX')
-            let pushy = map.get('arrY')
-            
-            if(it === '#') {
-                pushx.push(x)
-                pushy.push(y)
-            }
-        }) 
+        let min = ele.indexOf("#")
+        let max = ele.lastIndexOf("#")
+        if(min !== -1) {
+            arrX.push(min)
+            arrY.push(y)
+        }
+        
+        if(max !== -1) {
+            arrX.push(max)
+            arrY.push(y)
+        }
     })
-    answer.push(Math.min(...map.get('arrY')))
-    answer.push(Math.min(...map.get('arrX')))
-    answer.push(Math.max(...map.get('arrY')) +1 )
-    answer.push(Math.max(...map.get('arrX')) +1)
+    
+    answer.push(Math.min(...arrY), Math.min(...arrX) , Math.max(...arrY)+1, Math.max(...arrX)+1)
+    
     return answer
 }
 
